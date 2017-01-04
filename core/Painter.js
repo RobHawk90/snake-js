@@ -2,15 +2,17 @@ class Painter {
 
   constructor() {
     this.sprites = []
-
-    document.addEventListener('keydown', event => {
-      this.sprites.forEach(sprite => sprite.input(event))
-    })
   }
 
   pick(... sprites) {
     sprites.forEach(sprite => this.sprites.push(sprite))
+    return this
+  }
 
+  controlSpritesOn(action) {
+    document.addEventListener(action, event => {
+      this.sprites.forEach(sprite => sprite.input(event))
+    })
     return this
   }
 

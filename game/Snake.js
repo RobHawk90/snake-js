@@ -4,7 +4,7 @@ class Snake extends Rectangle {
     super(x, y, size, size)
 
     this.size = size
-    this.body = [{blocksX: 3, blocksY: 1}, {blocksX: 2, blocksY: 1}, {blocksX: 1, blocksY: 1}]
+    this.body = [{blocksX: x + 3, blocksY: y}, {blocksX: x + 2, blocksY: y}, {blocksX: x + 1, blocksY: y}]
     this.controller = {
       up: 'ArrowUp',
       down: 'ArrowDown',

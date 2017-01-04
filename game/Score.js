@@ -15,7 +15,7 @@ class Score extends Text {
   }
 
   draw(screen) {
-    this.text = `${this.points} meters`
+    this.text = `size ${this.points}/30 m`
     super.draw(screen)
   }
 

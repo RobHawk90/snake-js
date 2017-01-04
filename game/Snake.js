@@ -35,16 +35,20 @@ class Snake extends Rectangle {
     let config = this.controller
     switch(event.key) {
       case config.up:
-        this.direction = 'up'
+        if(this.direction != 'down')
+          this.direction = 'up'
         break
       case config.down:
-        this.direction = 'down'
+        if(this.direction != 'up')
+          this.direction = 'down'
         break
       case config.left:
-        this.direction = 'left'
+        if(this.direction != 'right')
+          this.direction = 'left'
         break
       case config.right:
-        this.direction = 'right'
+        if(this.direction != 'left')
+          this.direction = 'right'
         break
     }
   }

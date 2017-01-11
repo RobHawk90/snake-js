@@ -1,16 +1,14 @@
 class GameOver extends Text {
 
-  constructor(size, text = '') {
-    super(text, size)
+  constructor(size, background) {
+    super('', size)
+
+    this.background = background
   }
 
-  background(color) {
-    this.background = color
+  show(screen, text) {
+    this.text = text
 
-    return this
-  }
-
-  show(screen) {
     let context = screen.context
     context.fillStyle = this.background ? this.background : screen.background
     context.fillRect(0, 0, screen.width, screen.height)

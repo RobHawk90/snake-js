@@ -1,10 +1,12 @@
 class Snake extends Rectangle {
 
   constructor(x, y, size) {
-    super(x, y, size, size)
+    super(x * size, y * size, size, size)
 
     this.size = size
-    this.body = [{blocksX: x + 3, blocksY: y}, {blocksX: x + 2, blocksY: y}, {blocksX: x + 1, blocksY: y}]
+    this.blocksX = x + 3
+    this.blocksY = y
+    this.body = [{blocksX: x + 2, blocksY: y}, {blocksX: x + 1, blocksY: y}]
     this.controller = {
       up: 'ArrowUp',
       down: 'ArrowDown',
@@ -13,15 +15,14 @@ class Snake extends Rectangle {
     }
   }
 
-  getHead() {
-    let head = this.body[0]
+  getHeadCopy() {
     let size = this.size
 
     return {
-      blocksX: head.blocksX,
-      blocksY: head.blocksY,
-      x: head.blocksX * size,
-      y: head.blocksY * size,
+      blocksX: this.blocksX,
+      blocksY: this.blocksY,
+      x: this.blocksX * size,
+      y: this.blocksY * size,
       width: size,
       height: size
     }
@@ -66,23 +67,27 @@ class Snake extends Rectangle {
       let y = block.blocksY * size
       context.fillRect(x, y, size, size)
     })
+
+    super.draw(screen)
   }
 
   move(direction = '') {
-    let head = this.getHead()
+    if(this.frozen) return
+
+    let head = this.getHeadCopy()
 
     switch(direction) {
       case 'up':
-        head.blocksY--
+        this.blocksY--
         break
       case 'down':
-        head.blocksY++
+        this.blocksY++
         break
       case 'left':
-        head.blocksX--
+        this.blocksX--
         break
       case 'right':
-        head.blocksX++
+        this.blocksX++
         break
       default:
         return
@@ -91,6 +96,28 @@ class Snake extends Rectangle {
     this.body.pop()
     this.body.unshift(head)
     this.updatePosition()
+  }
+
+  wormhole(side) {
+    if(side.right) {
+      this.blocksX = 0
+      this.x = 0
+    }
+
+    if(side.left) {
+      this.blocksX = screen.width / this.size
+      this.x = screen.width
+    }
+
+    if(side.top) {
+      this.blocksY = screen.height / this.size
+      this.y = screen.height
+    }
+
+    if(side.bottom) {
+      this.blocksY = 0
+      this.y = 0
+    }
   }
 
   small(size) {
@@ -102,13 +129,17 @@ class Snake extends Rectangle {
   }
 
   updatePosition() {
-    let head = this.getHead()
-    this.x = head.x
-    this.y = head.y
+    this.x = this.blocksX * this.size
+    this.y = this.blocksY * this.size
+  }
+
+  freeze(millis) {
+    this.frozen = true
+    setTimeout(() => this.frozen = false, millis)
   }
 
   onEat(food, callback) {
-    let head = this.getHead()
+    let head = this.getHeadCopy()
     this.onCollides(food, () => {
       this.body.unshift(head)
       callback()

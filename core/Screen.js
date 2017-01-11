@@ -44,11 +44,12 @@ class Screen {
   }
 
   onOut(sprite, callback) {
-    let outX = sprite.x < 0 || sprite.x >= this.width
-    let outY = sprite.y < 0 || sprite.y >= this.height
-    let out = outX || outY
+    let right = sprite.x >= this.width
+    let left = sprite.x < 0
+    let top = sprite.y < 0
+    let bottom = sprite.y >= this.height
 
-    if(out && callback)
-      callback()
+    if(right || left || top || bottom)
+      callback({right: right, left: left, top: top, bottom: bottom})
   }
 }

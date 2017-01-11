@@ -18,6 +18,7 @@ class Painter {
 
   paint(screen, callback) {
     screen.show()
+
     this.loop = setInterval(() => {
       screen.clear()
       this.sprites.forEach(sprite => sprite.draw(screen))

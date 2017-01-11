@@ -3,7 +3,7 @@ class Score extends Text {
   constructor(size, color) {
     super('', size, color)
 
-    this.points = 3
+    this.points = 2
   }
 
   increase(points = 1) {
@@ -15,7 +15,7 @@ class Score extends Text {
   }
 
   draw(screen) {
-    this.text = `size ${this.points}/30 m`
+    this.text = `size ${this.points} m`
     super.draw(screen)
   }
 

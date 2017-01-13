@@ -1,17 +1,36 @@
-let screen = new Screen(window.innerWidth/2 - 200, window.innerHeight/2 - 200, 400, 400)
-let snake = new Snake(0, 3, 20)
-let food = new Food(screen, 20)
+let goalPoints = 50
+let size = 20
+
+let screen = new Screen(0, 0, 400, 400, 'center')
+let snake = new Snake(0, 3, size)
+let food = new Food(screen, size)
+let ice = new Obstacle(snake, screen, size)
+let bomb = new Obstacle(snake, screen, size)
+let spike = new Obstacle(snake, screen, size)
 let score = new Score(20)
 let lose = new GameOver(60, 'rgba(150, 0, 0, 0.5)')
 let win = new GameOver(60, 'rgba(0, 150, 0, 0.5)')
+let author = new Text('by RobHawk', 10)
+let progress = new ProgressBar(screen)
+
+progress.show()
+
+screen.background = '#7f7'
+
+author.align = 'right'
+author.x = screen.width
+author.y = screen.height
+
+spike.background = '#999'
+bomb.background = '#000'
 
 let painter = new Painter()
 
-painter.pick(score, food, snake)
+painter.pick(author, score, food, ice, spike, bomb, snake)
 .controlSpritesOn('keydown')
 .paint(screen, () => {
 
-  if(score.points == 30){
+  if(score.points == goalPoints) {
     win.show(screen, 'You win!')
     painter.stopPainting()
   }
@@ -23,15 +42,27 @@ painter.pick(score, food, snake)
   snake.onEat(food, () => {
     score.increase()
     food.respawn(screen)
+    progress.update(score.points / goalPoints)
   })
 
   snake.onSelfBite(() => {
-    lose.show(screen, 'You lose.')
+    lose.show(screen, 'Aaaautch!')
     painter.stopPainting()
+  })
 
+  snake.onCollides(spike, () => {
     snake.small(5)
     score.points = snake.getSize()
-    snake.freeze(2000)
+    progress.update(score.points / goalPoints)
+  })
+
+  snake.onCollides(bomb, () => {
+    lose.show(screen, 'BOOOM!')
+    painter.stopPainting()
+  })
+
+  snake.onCollides(ice, () => {
+    snake.freeze(4000)
   })
 
 })

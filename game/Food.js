@@ -9,15 +9,9 @@ class Food extends Rectangle {
   }
 
   respawn(screen) {
-    this.x = this.getRandomPoint(screen.width)
-    this.y = this.getRandomPoint(screen.height)
+    this.x = Position.getRandomPoint(0, screen.width, this.size)
+    this.y = Position.getRandomPoint(0, screen.height, this.size)
     this._setRespawn(5000)
-  }
-
-  getRandomPoint(max) {
-    let point = Math.floor(Math.random() * max)
-    let outfit = point % this.size
-    return point - outfit
   }
 
   _setRespawn(millis) {

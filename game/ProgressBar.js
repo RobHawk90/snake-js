@@ -18,11 +18,11 @@ class ProgressBar extends Screen {
 
     let progress = Math.round(percent * 100)
 
-    this.progress.text = `${progress}%`
-    this.progress.draw(this)
-
     this.bar.width = this.width * percent
     this.bar.draw(this)
+
+    this.progress.text = `${progress}%`
+    this.progress.draw(this)
   }
 
 }

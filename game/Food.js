@@ -5,6 +5,7 @@ class Food extends Rectangle {
 
     this.size = size
     this.background = '#f99'
+    this.image = 'img/food.png'
     this.respawn(screen)
   }
 

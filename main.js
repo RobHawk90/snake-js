@@ -6,7 +6,7 @@ let snake = new Snake(0, 3, size)
 let food = new Food(screen, size)
 let ice = new Obstacle(snake, screen, size)
 let bomb = new Obstacle(snake, screen, size)
-let spike = new Obstacle(snake, screen, size)
+let poison = new Obstacle(snake, screen, size)
 let score = new Score(20)
 let lose = new GameOver(60, 'rgba(150, 0, 0, 0.5)')
 let win = new GameOver(60, 'rgba(0, 150, 0, 0.5)')
@@ -21,12 +21,13 @@ author.align = 'right'
 author.x = screen.width
 author.y = screen.height
 
-spike.background = '#999'
-bomb.background = '#000'
+poison.image = 'img/poison.png'
+bomb.image = 'img/bomb.png'
+ice.image = 'img/ice.png'
 
 let painter = new Painter()
 
-painter.pick(author, score, food, ice, spike, bomb, snake)
+painter.pick(author, score, food, ice, poison, bomb, snake)
 .controlSpritesOn('keydown')
 .paint(screen, () => {
 
@@ -50,7 +51,7 @@ painter.pick(author, score, food, ice, spike, bomb, snake)
     painter.stopPainting()
   })
 
-  snake.onCollides(spike, () => {
+  snake.onCollides(poison, () => {
     snake.small(5)
     score.points = snake.getSize()
     progress.update(score.points / goalPoints)

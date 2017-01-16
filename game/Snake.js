@@ -37,25 +37,25 @@ class Snake extends Rectangle {
     switch(event.key) {
       case config.up:
         if(this.direction != 'down')
-          this.direction = 'up'
+          this.nextDirection = 'up'
         break
       case config.down:
         if(this.direction != 'up')
-          this.direction = 'down'
+          this.nextDirection = 'down'
         break
       case config.left:
         if(this.direction != 'right')
-          this.direction = 'left'
+          this.nextDirection = 'left'
         break
       case config.right:
         if(this.direction != 'left')
-          this.direction = 'right'
+          this.nextDirection = 'right'
         break
     }
   }
 
   draw(screen) {
-    this.move(this.direction)
+    this.move(this.nextDirection)
 
     let size = this.size
 
@@ -73,6 +73,8 @@ class Snake extends Rectangle {
 
   move(direction = '') {
     if(this.frozen) return
+
+    this.direction = direction
 
     let head = this.getHeadCopy()
 

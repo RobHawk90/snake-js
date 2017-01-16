@@ -10,8 +10,25 @@ class Rectangle extends Sprite {
     this.background = '#000'
   }
 
+  set image(src) {
+    let img = document.createElement('img')
+    img.setAttribute('src', src)
+    this._img = img
+    this._imgSrc = src
+  }
+
+  get image() {
+    return this._imgSrc
+  }
+
   draw(screen) {
     let context = screen.context
+
+    if(this._img) {
+      context.drawImage(this._img, this.x, this.y)
+      return
+    }
+
     context.fillStyle = this.background
     context.fillRect(this.x, this.y, this.width, this.height)
   }

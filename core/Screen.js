@@ -11,10 +11,6 @@ class Screen {
     this.x = x
     this.y = y
     this.align = align
-
-    let img = document.createElement('img')
-    img.setAttribute('src', 'img/grass.png')
-    this.img = img
   }
 
   set align(type) {
@@ -79,8 +75,6 @@ class Screen {
 
   clear() {
     this.context.clearRect(0, 0, this.width, this.height)
-
-
   }
 
   onOut(sprite, callback) {

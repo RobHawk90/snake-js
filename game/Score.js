@@ -3,7 +3,7 @@ class Score extends Text {
   constructor(size, color) {
     super('', size, color)
 
-    this.points = 2
+    this.points = 3
   }
 
   increase(points = 1) {

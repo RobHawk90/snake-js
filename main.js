@@ -25,9 +25,12 @@ poison.image = 'img/poison.png'
 bomb.image = 'img/bomb.png'
 ice.image = 'img/ice.png'
 
+let grass = new Rectangle(0, 0, 400, 400)
+grass.image = 'img/grass.png'
+
 let painter = new Painter()
 
-painter.pick(author, score, food, ice, poison, bomb, snake)
+painter.pick(grass, author, score, food, ice, poison, bomb, snake)
 .controlSpritesOn('keydown')
 .paint(screen, () => {
 

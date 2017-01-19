@@ -3,6 +3,9 @@ class Rectangle extends Sprite {
   constructor(x, y, width, height) {
     super()
 
+    let img = document.createElement('img')
+
+    this._img = img
     this.x = x
     this.y = y
     this.width = width
@@ -11,20 +14,18 @@ class Rectangle extends Sprite {
   }
 
   set image(src) {
-    let img = document.createElement('img')
-    img.setAttribute('src', src)
-    this._img = img
+    this._img.setAttribute('src', src)
     this._imgSrc = src
   }
 
   get image() {
-    return this._imgSrc
+    return this._img
   }
 
   draw(screen) {
     let context = screen.context
 
-    if(this._img) {
+    if(this._imgSrc) {
       context.drawImage(this._img, this.x, this.y)
       return
     }
